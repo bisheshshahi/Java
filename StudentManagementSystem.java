@@ -83,14 +83,132 @@ public class StudentManagementSystem {
             }
             break;
 
-          case 5:
+          case 3:
+            System.out.print("Enter 1 to search the student via id: ");
+            System.out.print("Enter 2 to search the student via name: ");
+            int searchStudent = scanner.nextInt();
+            scanner.nextLine();
+
+           if (searchStudent == 1){
+            System.out.print("Enter the id of the student: ");
+            int studentId = scanner.nextInt();
+            scanner.nextLine(); 
+            boolean studentFound = false;
+
             for(Student student : students){
-              System.out.println("Name: " + student.name);
-              System.out.println("Id: " + student.id);
-              System.out.println("Marks: " + student.marks);
-              System.out.println();
+              if(student.id == studentId){
+                System.out.println("Name: " + student.name);
+                System.out.println("Id: " + student.id);
+                System.out.println("Marks: " + student.marks);
+                studentFound = true;
+                break;
+              }
+            }
+            if(!studentFound){
+              System.out.println("Student of " + studentId + " id not found");
+            }
+           } else if (searchStudent == 2) {
+              System.out.print("Enter the name of the student: ");
+              String studentName = scanner.nextLine();
+              boolean studentFound = false;
+
+              for(Student student : students){
+                if(student.name.equalsIgnoreCase(studentName)){
+                  System.out.println("Name: " + student.name);
+                  System.out.println("Id: " + student.id);
+                  System.out.println("Marks: " + student.marks);
+                  studentFound = true;
+                  break;
+                }
+              }
+              if(!studentFound){
+              System.out.println("Student of " + studentName + " name not found");
+            }
+           }
+           break;
+
+          case 4:
+            System.out.print("Enter the id of the student you want to update: ");
+            int updateId = scanner.nextInt();
+            scanner.nextLine();
+            boolean update = false;
+
+            for(Student student : students){
+              if(student.id == updateId){
+                System.out.print("Enter new name: ");
+                student.name = scanner.nextLine();
+
+                System.out.print("Enter new marks: ");
+                student.marks = scanner.nextDouble();
+                scanner.nextLine();
+                update = true;
+                break;
+              }
+            }
+            if(!update){
+              System.out.println("Student of id " + updateId + " not found");
             }
             break;
+
+          case 5:
+            if(students.isEmpty()){
+              System.out.println("No students available");
+            }else{
+              for(Student student : students){
+                  System.out.println("Name: " + student.name);
+                  System.out.println("Id: " + student.id);
+                  System.out.println("Marks: " + student.marks);
+                  System.out.println();
+                }
+             }
+            break;
+
+          case 6:
+             if(students.isEmpty()){
+               System.out.println("No students available");
+              }else{
+               double totalMarks = 0;
+        
+               for(Student student : students){
+                  totalMarks += student.marks;
+               }
+                double average = totalMarks / students.size();
+                System.out.println("Average marks: " + average);
+              }
+           break;
+
+          case 7:
+            if(students.isEmpty()){
+              System.out.println("No students available");
+            }else{
+                Student highest = students.get(0);
+               for(Student student : students){
+                 if(student.marks > highest.marks){
+                    highest = student;
+                    }
+                }
+            System.out.println("Highest Scorer:");
+            System.out.println("Name: " + highest.name);
+            System.out.println("Id: " + highest.id);
+            System.out.println("Marks: " + highest.marks);
+           }
+           break;
+
+          case 8:
+            if(students.isEmpty()){
+             System.out.println("No students available");
+             }else{
+               Student lowest = students.get(0);
+                  for(Student student : students){
+                    if(student.marks < lowest.marks){
+                      lowest = student;
+                        }
+                  }
+            System.out.println("Lowest Scorer:");
+            System.out.println("Name: " + lowest.name);             System.out.println("Id: " + lowest.id);
+            System.out.println("Marks: " + lowest.marks);
+           }
+          break;
 
           case 9:
             isTrue = false;
