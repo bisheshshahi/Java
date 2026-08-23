@@ -205,7 +205,8 @@ public class StudentManagementSystem {
                         }
                   }
             System.out.println("Lowest Scorer:");
-            System.out.println("Name: " + lowest.name);             System.out.println("Id: " + lowest.id);
+            System.out.println("Name: " + lowest.name);   
+            System.out.println("Id: " + lowest.id);
             System.out.println("Marks: " + lowest.marks);
            }
           break;
