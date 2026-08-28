@@ -8,6 +8,7 @@ Find highest/lowest scorer */
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 class Student{
   String name;
@@ -30,6 +31,7 @@ public class StudentManagementSystem {
     Scanner scanner = new Scanner(System.in);
 
     while(isTrue){
+      try{
         System.out.println("\n===== STUDENT MANAGEMENT SYSTEM =====");
         System.out.println("1. Add Student");
         System.out.println("2. Remove Student");
@@ -220,6 +222,13 @@ public class StudentManagementSystem {
             
         }
     }
+      catch(InputMismatchException e){
+        System.out.println("Please enter valid integer(1-9)");
+        scanner.nextLine();
+  }
+  }
+
+
 
     scanner.close();
 
