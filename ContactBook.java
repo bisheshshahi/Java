@@ -56,13 +56,27 @@ public class ContactBook {
           displayContacts();
           break;
         
+        case 3:
+          searchContact();
+          break;
+        
+        case 4:
+          removeContact();
+          break;
+        
         case 7:
           isTrue = false;
-      }
+          System.out.println("Bye bye!!!");
+          break;
+
+        default:
+          System.out.println("Invalid choice");
+       }
 
       }
       catch(InputMismatchException e){
-        System.out.println("Invalid choice");
+        System.out.println("Wrong input!!!");
+        System.out.println("Please enter integer from (1-7)");
         scanner.nextLine();
       }
       
@@ -92,5 +106,45 @@ public class ContactBook {
       System.out.println();
     }
   }
+
+  static void searchContact(){
+
+    System.out.print("Enter the name of the person: ");
+    String name = scanner.nextLine();
+    boolean found = false;
+
+    for(Contact contact : contacts){
+      if(name.equals(contact.name)){
+        System.out.println("Contact found!!!");
+        System.out.println("Name: " + contact.name);
+        System.out.println("Number: " + contact.number);
+        found = true;
+        break;
+      }
+
+    }
+    if(!found){
+      System.out.println("Contact not found");
+    }
+  }
+
+  static void removeContact(){
+    boolean found = false;
+
+    System.out.print("Enter the name of the contact: ");
+    String name = scanner.nextLine();
+
+    for(int i = 0 ; i < contacts.size() ; i++){
+        if(name.equals(contacts.get(i).name)){
+          contacts.remove(i);
+          found = true;
+          System.out.println("Contacts removed successfully");
+          break;
+        }
+      }
+      if(!found){
+        System.out.println("Contact not found");
+      }
+    }
   
 }
