@@ -10,6 +10,10 @@ Load contacts when the program starts again
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 class Contact{
   String name;
@@ -26,7 +30,7 @@ public class ContactBook {
   static ArrayList<Contact> contacts = new ArrayList<>(); 
   static Scanner scanner = new Scanner(System.in);
 
-  public static void main(String[] args){
+  public static void main(String[] args) throws Exception{
 
     boolean isTrue = true;
 
@@ -62,6 +66,14 @@ public class ContactBook {
         
         case 4:
           removeContact();
+          break;
+        
+        case 5:
+          saveContacts();
+          break;
+
+        case 6:
+          loadContacts();
           break;
         
         case 7:
@@ -146,5 +158,44 @@ public class ContactBook {
         System.out.println("Contact not found");
       }
     }
-  
+
+  static void saveContacts() throws Exception {
+    BufferedWriter writer = new BufferedWriter(new FileWriter  ("contacts.txt"));
+
+    for(Contact contact : contacts){
+      writer.write("Name: " + contact.name);
+      writer.newLine();
+
+      writer.write("Number: " + contact.number);
+      writer.newLine();
+
+      writer.newLine();
+    }
+    
+    writer.close();
+    System.out.println("Contacts saved successfully!!!");
+  }
+
+  static void loadContacts() throws Exception{
+    BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"));
+
+    String nameLine;
+
+    while((nameLine = reader.readLine()) != null){
+      if(nameLine.isEmpty()){
+        continue;
+      }
+
+      String numberLine = reader.readLine();
+
+      String name = nameLine.substring(6);
+      String number = numberLine.substring(8);
+
+      contacts.add(new Contact(name, number));
+    }
+
+    reader.close();
+
+    System.out.println("Contacts loaded successfully!!!");
+  }
 }
