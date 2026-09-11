@@ -112,15 +112,27 @@ public class ContactBook {
 
   static void displayContacts(){
     
-    for(Contact contact: contacts){
-      System.out.println("Name: " + contact.name);
-      System.out.println("Number: " + contact.number);
-      System.out.println();
+    if(contacts.isEmpty()){
+      System.out.println("No contacts are here");
+      System.out.println("Add contacts to see them");
+    }
+    else{
+      for(Contact contact: contacts){
+        System.out.println("Name: " + contact.name);
+        System.out.println("Number: " + contact.number);
+        System.out.println();
+      }  
     }
   }
 
   static void searchContact(){
 
+    if(contacts.isEmpty()){
+      System.out.println("Zero contacts found");
+      System.out.println("Please first add contacts before searching them");
+    }
+
+    else{
     System.out.print("Enter the name of the person: ");
     String name = scanner.nextLine();
     boolean found = false;
@@ -139,8 +151,16 @@ public class ContactBook {
       System.out.println("Contact not found");
     }
   }
+}
 
   static void removeContact(){
+
+    if(contacts.isEmpty()){
+      System.out.println("Zero contacts found");
+    }
+
+    else{
+
     boolean found = false;
 
     System.out.print("Enter the name of the contact: ");
@@ -158,6 +178,7 @@ public class ContactBook {
         System.out.println("Contact not found");
       }
     }
+  }
 
   static void saveContacts() throws Exception {
     BufferedWriter writer = new BufferedWriter(new FileWriter  ("contacts.txt"));
