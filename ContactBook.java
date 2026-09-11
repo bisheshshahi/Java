@@ -34,6 +34,7 @@ public class ContactBook {
 
   public static void main(String[] args){
 
+    loadContacts();
     boolean isTrue = true;
 
     while(isTrue){
@@ -43,8 +44,7 @@ public class ContactBook {
       System.out.println("3. Search contact");
       System.out.println("4. Delete contact");
       System.out.println("5. Save contacts");
-      System.out.println("6. Load contacts");
-      System.out.println("7. Exit");
+      System.out.println("6. Exit");
 
       System.out.print("Enter your choice: ");
 
@@ -75,10 +75,6 @@ public class ContactBook {
           break;
 
         case 6:
-          loadContacts();
-          break;
-        
-        case 7:
           isTrue = false;
           System.out.println("Bye bye!!!");
           break;
@@ -90,7 +86,7 @@ public class ContactBook {
       }
       catch(InputMismatchException e){
         System.out.println("Wrong input!!!");
-        System.out.println("Please enter integer from (1-7)");
+        System.out.println("Please enter integer from (1-6)");
         scanner.nextLine();
       }
       
