@@ -12,8 +12,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.IOException;
 
 class Contact{
   String name;
@@ -30,7 +32,7 @@ public class ContactBook {
   static ArrayList<Contact> contacts = new ArrayList<>(); 
   static Scanner scanner = new Scanner(System.in);
 
-  public static void main(String[] args) throws Exception{
+  public static void main(String[] args){
 
     boolean isTrue = true;
 
@@ -180,7 +182,9 @@ public class ContactBook {
     }
   }
 
-  static void saveContacts() throws Exception {
+  static void saveContacts(){
+
+    try{
     BufferedWriter writer = new BufferedWriter(new FileWriter  ("contacts.txt"));
 
     for(Contact contact : contacts){
@@ -195,9 +199,15 @@ public class ContactBook {
     
     writer.close();
     System.out.println("Contacts saved successfully!!!");
+  } 
+  catch(IOException e){
+    System.out.println("Error while saving contacts");
+   }
   }
 
-  static void loadContacts() throws Exception{
+  static void loadContacts(){
+
+    try{
     BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"));
 
     String nameLine;
@@ -218,5 +228,13 @@ public class ContactBook {
     reader.close();
 
     System.out.println("Contacts loaded successfully!!!");
+  }
+  catch(FileNotFoundException e){
+    System.out.println("No contacts file found");
+  }
+
+  catch(IOException e){
+    System.out.println("Error while loading contacts");
+    }
   }
 }
