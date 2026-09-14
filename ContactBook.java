@@ -25,6 +25,11 @@ class Contact{
     this.name = name;
     this.number = number;
   }
+
+  @Override 
+  public String toString(){
+    return "Name: " + name + "\nNumber: " + number;
+  }
 }
 
 public class ContactBook {
@@ -116,8 +121,7 @@ public class ContactBook {
     }
     else{
       for(Contact contact: contacts){
-        System.out.println("Name: " + contact.name);
-        System.out.println("Number: " + contact.number);
+        System.out.println(contact);
         System.out.println();
       }  
     }
@@ -138,9 +142,7 @@ public class ContactBook {
     for(Contact contact : contacts){
       if(name.equals(contact.name)){
         System.out.println("Contact found!!!");
-        System.out.println("Name: " + contact.name);
-        System.out.println("Number: " + contact.number);
-        found = true;
+        System.out.println(contact);
         break;
       }
 
