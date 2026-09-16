@@ -140,13 +140,12 @@ public class ContactBook {
     boolean found = false;
 
     for(Contact contact : contacts){
-      if(name.equals(contact.name)){
+      if(contact.name.toLowerCase().contains(name.toLowerCase())){
         System.out.println("Contact found!!!");
         System.out.println(contact);
+        System.out.println();
         found = true;
-        break;
       }
-
     }
     if(!found){
       System.out.println("Contact not found");
