@@ -143,6 +143,7 @@ public class ContactBook {
       if(name.equals(contact.name)){
         System.out.println("Contact found!!!");
         System.out.println(contact);
+        found = true;
         break;
       }
 
