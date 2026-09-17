@@ -48,8 +48,7 @@ public class ContactBook {
       System.out.println("2. Display contacts");
       System.out.println("3. Search contact");
       System.out.println("4. Delete contact");
-      System.out.println("5. Save contacts");
-      System.out.println("6. Exit");
+      System.out.println("5. Exit");
 
       System.out.print("Enter your choice: ");
 
@@ -74,12 +73,8 @@ public class ContactBook {
         case 4:
           removeContact();
           break;
-        
-        case 5:
-          saveContacts();
-          break;
 
-        case 6:
+        case 5:
           isTrue = false;
           System.out.println("Bye bye!!!");
           break;
@@ -91,7 +86,7 @@ public class ContactBook {
       }
       catch(InputMismatchException e){
         System.out.println("Wrong input!!!");
-        System.out.println("Please enter integer from (1-6)");
+        System.out.println("Please enter integer from (1-5)");
         scanner.nextLine();
       }
       
@@ -111,6 +106,8 @@ public class ContactBook {
 
     contacts.add(new Contact(name , number));
     System.out.println("Contact added successfully");
+
+    saveContacts();
   }
 
   static void displayContacts(){
