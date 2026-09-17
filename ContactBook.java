@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+// Represents one contact with a name and a number
 class Contact{
   String name;
   String number;
@@ -34,6 +35,7 @@ class Contact{
 
 public class ContactBook {
 
+  // Holds all contacts while the program is running
   static ArrayList<Contact> contacts = new ArrayList<>(); 
   static Scanner scanner = new Scanner(System.in);
 
@@ -42,6 +44,7 @@ public class ContactBook {
     loadContacts();
     boolean isTrue = true;
 
+    // Keeps showing the menu until the user chooses to exit
     while(isTrue){
       
       System.out.println("1. Add contact");
@@ -81,9 +84,11 @@ public class ContactBook {
 
         default:
           System.out.println("Invalid choice");
+          System.out.println("Please enter a number from 1 to 5");
        }
 
       }
+      // Catches it if the user types letters/symbols instead of a number
       catch(InputMismatchException e){
         System.out.println("Wrong input!!!");
         System.out.println("Please enter integer from (1-5)");
@@ -96,13 +101,74 @@ public class ContactBook {
 
   }
 
+  // Keeps asking until the user types something that isn't blank
+  static String readNonEmptyLine(String prompt){
+    String input;
+    while(true){
+      System.out.print(prompt);
+      input = scanner.nextLine().trim();
+
+      if(input.isEmpty()){
+        System.out.println("This field can't be empty. Please try again.");
+      }
+      else{
+        return input;
+      }
+    }
+  }
+
+  // Name should contain only letters and spaces
+  static String readValidName(String prompt){
+    String input;
+    while(true){
+      input = readNonEmptyLine(prompt);
+
+      if(!input.matches("[a-zA-Z ]+")){
+        System.out.println("Name should only contain letters and spaces.");
+      }
+      else{
+        return input;
+      }
+    }
+  }
+
+  // Number should be digits only, exactly 10 digits
+  static String readValidNumber(String prompt){
+    String input;
+    while(true){
+      input = readNonEmptyLine(prompt);
+
+      if(!input.matches("[0-9]{10}")){
+        System.out.println("Invalid number. Use digits only, exactly 10 digits long,");
+        System.out.println("e.g. 9812345678");
+      }
+      else{
+        return input;
+      }
+    }
+  }
+
+  // Checks if a contact with this name is already saved, so we don't add it twice
+  static boolean nameExists(String name){
+    for(Contact contact : contacts){
+      if(contact.name.equalsIgnoreCase(name)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Asks for a name and number, then adds the new contact to the list
   static void addContact(){
 
-    System.out.print("Enter name: ");
-    String name = scanner.nextLine();
+    String name = readValidName("Enter name: ");
 
-    System.out.print("Enter number: ");
-    String number = scanner.nextLine();
+    if(nameExists(name)){
+      System.out.println("A contact with this name already exists. Contact not added.");
+      return;
+    }
+
+    String number = readValidNumber("Enter number: ");
 
     contacts.add(new Contact(name , number));
     System.out.println("Contact added successfully");
@@ -110,6 +176,7 @@ public class ContactBook {
     saveContacts();
   }
 
+  // Prints every contact currently in the list
   static void displayContacts(){
     
     if(contacts.isEmpty()){
@@ -124,6 +191,7 @@ public class ContactBook {
     }
   }
 
+  // Looks for contacts whose name contains what the user typed (partial match allowed)
   static void searchContact(){
 
     if(contacts.isEmpty()){
@@ -132,8 +200,7 @@ public class ContactBook {
     }
 
     else{
-    System.out.print("Enter the name of the person: ");
-    String name = scanner.nextLine();
+    String name = readNonEmptyLine("Enter the name of the person: ");
     boolean found = false;
 
     for(Contact contact : contacts){
@@ -150,6 +217,7 @@ public class ContactBook {
   }
 }
 
+  // Finds a contact by exact name and removes it from the list
   static void removeContact(){
 
     if(contacts.isEmpty()){
@@ -160,14 +228,14 @@ public class ContactBook {
 
     boolean found = false;
 
-    System.out.print("Enter the name of the contact: ");
-    String name = scanner.nextLine();
+    String name = readNonEmptyLine("Enter the name of the contact: ");
 
     for(int i = 0 ; i < contacts.size() ; i++){
-        if(name.equals(contacts.get(i).name)){
+        if(name.equalsIgnoreCase(contacts.get(i).name)){
           contacts.remove(i);
           found = true;
           System.out.println("Contacts removed successfully");
+          saveContacts();
           break;
         }
       }
@@ -177,6 +245,7 @@ public class ContactBook {
     }
   }
 
+  // Writes all current contacts to contacts.txt so they aren't lost when the program closes
   static void saveContacts(){
 
     try{
@@ -200,6 +269,7 @@ public class ContactBook {
    }
   }
 
+  // Reads contacts.txt when the program starts, so old contacts show up again
   static void loadContacts(){
 
     try{
@@ -214,6 +284,7 @@ public class ContactBook {
 
       String numberLine = reader.readLine();
 
+      // Cuts off the "Name: " and "Number: " labels to keep just the actual value
       String name = nameLine.substring(6);
       String number = numberLine.substring(8);
 
@@ -224,6 +295,7 @@ public class ContactBook {
 
     System.out.println("Contacts loaded successfully!!!");
   }
+  // Happens the very first time the program runs, before contacts.txt exists yet
   catch(FileNotFoundException e){
     System.out.println("No contacts file found");
   }
