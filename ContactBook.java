@@ -51,7 +51,8 @@ public class ContactBook {
       System.out.println("2. Display contacts");
       System.out.println("3. Search contact");
       System.out.println("4. Delete contact");
-      System.out.println("5. Exit");
+      System.out.println("5. Update contact");
+      System.out.println("6. Exit");
 
       System.out.print("Enter your choice: ");
 
@@ -78,20 +79,24 @@ public class ContactBook {
           break;
 
         case 5:
+          updateContact();
+          break;
+
+        case 6:
           isTrue = false;
           System.out.println("Bye bye!!!");
           break;
 
         default:
           System.out.println("Invalid choice");
-          System.out.println("Please enter a number from 1 to 5");
+          System.out.println("Please enter a number from 1 to 6");
        }
 
       }
       // Catches it if the user types letters/symbols instead of a number
       catch(InputMismatchException e){
         System.out.println("Wrong input!!!");
-        System.out.println("Please enter integer from (1-5)");
+        System.out.println("Please enter integer from (1-6)");
         scanner.nextLine();
       }
       
@@ -242,6 +247,42 @@ public class ContactBook {
       if(!found){
         System.out.println("Contact not found");
       }
+    }
+  }
+
+
+  static void updateContact(){
+    if(contacts.isEmpty()){
+      System.out.println("Zero contacts found!!!");
+      return;
+    }
+
+    String oldName = readValidName("Enter the name of the contact you want to update: ");
+    boolean found = false;
+
+    for(Contact contact : contacts){
+      if(contact.name.equalsIgnoreCase(oldName)){
+        System.out.println("Contact found!!!");
+        System.out.println(contact);
+        System.out.println();
+
+        String newName = readValidName("Enter new name: ");
+        String newNumber = readValidNumber("Enter new number: ");
+
+        contact.name = newName;
+        contact.number = newNumber;
+
+        System.out.println("Contact updated successfully!!!");
+
+        saveContacts();
+
+        found = true;
+        break;
+      }
+    }
+
+    if(!found){
+      System.out.println("Contact not found!!!");
     }
   }
 
