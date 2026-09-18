@@ -250,7 +250,7 @@ public class ContactBook {
     }
   }
 
-
+  //updates an existing contact's name and number
   static void updateContact(){
     if(contacts.isEmpty()){
       System.out.println("Zero contacts found!!!");
@@ -267,6 +267,20 @@ public class ContactBook {
         System.out.println();
 
         String newName = readValidName("Enter new name: ");
+
+        boolean isDuplicate = false;
+        for(Contact c : contacts){
+          if(c != contact && c.name.equalsIgnoreCase(newName)){
+            isDuplicate = true;
+            break;
+          }
+        }
+
+        if(isDuplicate){
+          System.out.println("A contact with this name already exists! Update cancelled.");
+          return;
+        }
+
         String newNumber = readValidNumber("Enter new number: ");
 
         contact.name = newName;
@@ -284,7 +298,7 @@ public class ContactBook {
     if(!found){
       System.out.println("Contact not found!!!");
     }
-  }
+}
 
   // Writes all current contacts to contacts.txt so they aren't lost when the program closes
   static void saveContacts(){
