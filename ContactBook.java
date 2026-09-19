@@ -166,12 +166,18 @@ public class ContactBook {
   // Asks for a name and number, then adds the new contact to the list
   static void addContact(){
 
-    String name = readValidName("Enter name: ");
+    String name;
+
+  while(true){
+    name = readValidName("Enter name: ");
 
     if(nameExists(name)){
       System.out.println("A contact with this name already exists. Contact not added.");
-      return;
     }
+    else{
+      break;
+    }
+  }
 
     String number = readValidNumber("Enter number: ");
 
