@@ -245,7 +245,7 @@ public class ContactBook {
         if(name.equalsIgnoreCase(contacts.get(i).name)){
           contacts.remove(i);
           found = true;
-          System.out.println("Contacts removed successfully");
+          System.out.println("Contact removed successfully");
           saveContacts();
           break;
         }
