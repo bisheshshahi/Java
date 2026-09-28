@@ -309,8 +309,8 @@ public class ContactBook {
   // Writes all current contacts to contacts.txt so they aren't lost when the program closes
   static void saveContacts(){
 
-    try{
-    BufferedWriter writer = new BufferedWriter(new FileWriter  ("contacts.txt"));
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter  ("contacts.txt"))){
+   
 
     for(Contact contact : contacts){
       writer.write("Name: " + contact.name);
@@ -322,7 +322,6 @@ public class ContactBook {
       writer.newLine();
     }
     
-    writer.close();
     System.out.println("Contacts saved successfully!!!");
   } 
   catch(IOException e){
@@ -333,9 +332,8 @@ public class ContactBook {
   // Reads contacts.txt when the program starts, so old contacts show up again
   static void loadContacts(){
 
-    try{
-    BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"));
-
+    try(BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"))){
+    
     String nameLine;
 
     while((nameLine = reader.readLine()) != null){
@@ -345,14 +343,21 @@ public class ContactBook {
 
       String numberLine = reader.readLine();
 
+      // Skips an entry if it's broken (missing number line or wrong labels),
+      // so the program doesn't crash while loading
+       if(numberLine == null
+          || !nameLine.startsWith("Name: ")
+          || !numberLine.startsWith("Number: ")){
+          System.out.println("Skipped a broken entry in contacts.txt");
+        continue;
+      }
+
       // Cuts off the "Name: " and "Number: " labels to keep just the actual value
       String name = nameLine.substring(6);
       String number = numberLine.substring(8);
 
       contacts.add(new Contact(name, number));
     }
-
-    reader.close();
 
     System.out.println("Contacts loaded successfully!!!");
   }
