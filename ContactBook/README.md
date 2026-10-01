@@ -26,18 +26,17 @@ A simple command-line contact manager written in Java. Contacts are saved to a t
 ## How to Run
 
 1. Open a terminal in this folder.
-2. Compile:
+2. Compile the program:
 
 ```bash
-   javac ContactBook.java
+javac ContactBook.java
 ```
 
-3. Run:
+3. Run it:
 
 ```bash
-   java ContactBook
+java ContactBook
 ```
-
 ## Usage
 
 When the program starts, it shows this menu:
