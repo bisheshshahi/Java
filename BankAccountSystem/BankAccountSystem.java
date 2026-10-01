@@ -16,7 +16,7 @@ class Account{
   }
 
   void displayDetails(){
-    System.out.println("Name: " + name + " Balance: " + balance);
+    System.out.println("Name: " + name + "\n" + "Balance: " + balance);
   }
 
   void deposit(double amount){
@@ -49,7 +49,7 @@ public class BankAccountSystem {
       System.out.println("1. View bishesh's details");
       System.out.println("2. View bishesh2's details ");
       System.out.println("3. Exit");
-      
+
       System.out.println("Enter your choice: ");
       int choice = scanner.nextInt();
 
